@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Cilium nodes and addresses</title>
+        <link rel="stylesheet" href="cilium.css" />
+        <!-- The bridge to the app. Served by k8sdockside itself, always at this path. -->
+        <script src="/plugin-ui/_sdk/k8sdockside.js"></script>
+    </head>
+    <body class="page page-network">
+        <header class="top">
+            <div class="brand">
+                <span id="logo"></span>
+                <div>
+                    <h1>Nodes &amp; addresses</h1>
+                    <p id="where" class="faint">Connecting…</p>
+                </div>
+            </div>
+            <nav id="jump" class="jump" aria-label="Sections"></nav>
+            <nav class="top-actions" id="top-actions"></nav>
+        </header>
+
+        <p id="error" class="banner error" hidden></p>
+        <section id="empty" class="empty" hidden></section>
+        <div id="notice" class="notice wide" hidden></div>
+
+        <div id="body" class="net" hidden>
+            <section id="nodes" class="net-sec"></section>
+            <section id="lbipam" class="net-sec" hidden></section>
+            <section id="l2" class="net-sec" hidden></section>
+            <section id="bgp" class="net-sec" hidden></section>
+            <section id="egress" class="net-sec" hidden></section>
+            <p id="none" class="net-none" hidden></p>
+        </div>
+
+        <!-- Classic scripts, not type="module": a sandboxed frame has an opaque
+             origin, so a module would be a cross-origin load. -->
+        <script src="model.js"></script>
+        <script src="kit.js"></script>
+        <script src="network.js"></script>
+    </body>
+</html>

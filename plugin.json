@@ -1,0 +1,174 @@
+{
+    "$schema": "https://raw.githubusercontent.com/rogerwesterbo/k8sdockside/main/docs/plugin.schema.json",
+    "id": "cilium",
+    "name": "Cilium",
+    "version": "1.0.0",
+    "minAppVersion": "0.0.15",
+    "tagline": "eBPF networking, network policy and load balancing",
+    "icon": "share",
+    "docs": "https://docs.cilium.io/",
+    "author": "Roger Westerbo",
+    "links": [
+        { "label": "cilium.io", "url": "https://cilium.io" },
+        { "label": "Documentation", "url": "https://docs.cilium.io/en/stable/" },
+        { "label": "Network policy", "url": "https://docs.cilium.io/en/stable/security/policy/" },
+        { "label": "GitHub", "url": "https://github.com/cilium/cilium" },
+        { "label": "Plugin source", "url": "https://github.com/rogerwesterbo/k8sdockside-cilium" }
+    ],
+    "description": "Cilium networks every pod with eBPF, gives each set of labels a security identity, and enforces network policy on those identities — Kubernetes NetworkPolicies and its own CiliumNetworkPolicies, down to HTTP paths and DNS names.\n\nStart with the Endpoint map: every namespace as an island and every endpoint as a hexagon, coloured by whether policy is enforced on it, its identity, its node or its state. A namespace no policy touches says so, with a button that isolates it. The Policy map draws any policy as a flow — who may connect in, what it selects, where those endpoints may go — and says the same in plain words. Nodes & addresses shows each node's agent and pod addresses, and LB IPAM pools, L2 announcements, BGP sessions and egress gateways where the cluster has them.\n\nPods, Nodes and every network policy also get a Cilium panel in their detail view. Changes — isolating a namespace, switching an LB IPAM pool off — are always shown to you before they are made.",
+    "requires": [
+        { "kind": "crd:ciliumnetworkpolicies.cilium.io", "label": "Cilium network policies" },
+        { "kind": "crd:ciliumclusterwidenetworkpolicies.cilium.io", "label": "Cluster-wide network policies" },
+        { "kind": "crd:ciliumendpoints.cilium.io", "label": "Cilium endpoints" },
+        { "kind": "crd:ciliumnodes.cilium.io", "label": "Cilium nodes" },
+        { "kind": "crd:ciliumidentities.cilium.io", "label": "Identities", "optional": true },
+        { "kind": "crd:ciliumloadbalancerippools.cilium.io", "label": "LB IPAM pools", "optional": true },
+        { "kind": "crd:ciliuml2announcementpolicies.cilium.io", "label": "L2 announcement policies", "optional": true },
+        { "kind": "crd:ciliumbgpclusterconfigs.cilium.io", "label": "BGP cluster configs", "optional": true },
+        { "kind": "crd:ciliumbgppeerconfigs.cilium.io", "label": "BGP peer configs", "optional": true },
+        { "kind": "crd:ciliumbgpadvertisements.cilium.io", "label": "BGP advertisements", "optional": true },
+        { "kind": "crd:ciliumbgpnodeconfigs.cilium.io", "label": "BGP node configs", "optional": true },
+        { "kind": "crd:ciliumbgpnodeconfigoverrides.cilium.io", "label": "BGP node overrides", "optional": true },
+        { "kind": "crd:ciliumbgppeeringpolicies.cilium.io", "label": "BGP peering policies (before 1.19)", "optional": true },
+        { "kind": "crd:ciliumegressgatewaypolicies.cilium.io", "label": "Egress gateway policies", "optional": true },
+        { "kind": "crd:ciliumlocalredirectpolicies.cilium.io", "label": "Local redirect policies", "optional": true },
+        { "kind": "crd:ciliumpodippools.cilium.io", "label": "Pod IP pools", "optional": true },
+        { "kind": "crd:ciliumcidrgroups.cilium.io", "label": "CIDR groups", "optional": true },
+        { "kind": "crd:ciliumenvoyconfigs.cilium.io", "label": "Envoy configs", "optional": true },
+        { "kind": "crd:ciliumclusterwideenvoyconfigs.cilium.io", "label": "Cluster-wide Envoy configs", "optional": true },
+        { "kind": "crd:ciliumnodeconfigs.cilium.io", "label": "Node configs", "optional": true },
+        { "kind": "crd:ciliumendpointslices.cilium.io", "label": "Endpoint slices", "optional": true },
+        { "kind": "crd:ciliumgatewayclassconfigs.cilium.io", "label": "Gateway class configs (1.18+)", "optional": true }
+    ],
+    "ui": {
+        "kinds": ["pods", "nodes", "services", "configmaps", "networkpolicies", "events", "namespaces", "leases"],
+        "write": true
+    },
+    "overview": { "entry": "overview.html" },
+    "views": [
+        { "id": "endpoints", "label": "Endpoint map", "icon": "graph", "type": "custom", "entry": "endpoints.html" },
+        { "id": "policy-map", "label": "Policy map", "icon": "shield", "type": "custom", "entry": "policies.html" },
+        { "id": "network", "label": "Nodes & addresses", "icon": "server", "type": "custom", "entry": "network.html" },
+        { "id": "cnp", "label": "Network policies", "icon": "policy", "kind": "crd:ciliumnetworkpolicies.cilium.io" },
+        { "id": "ccnp", "label": "Cluster-wide policies", "icon": "globe", "kind": "crd:ciliumclusterwidenetworkpolicies.cilium.io" },
+        { "id": "k8s-policies", "label": "Kubernetes NetworkPolicies", "icon": "policy", "kind": "networkpolicies" },
+        { "id": "cilium-endpoints", "label": "Cilium endpoints", "icon": "dot", "kind": "crd:ciliumendpoints.cilium.io" },
+        { "id": "cilium-nodes", "label": "Cilium nodes", "icon": "server", "kind": "crd:ciliumnodes.cilium.io" },
+        { "id": "identities", "label": "Identities", "icon": "users", "kind": "crd:ciliumidentities.cilium.io" },
+        { "id": "lb-pools", "label": "LB IPAM pools", "icon": "database", "kind": "crd:ciliumloadbalancerippools.cilium.io" },
+        { "id": "l2-policies", "label": "L2 announcement policies", "icon": "link", "kind": "crd:ciliuml2announcementpolicies.cilium.io" },
+        { "id": "bgp-cluster", "label": "BGP cluster configs", "icon": "share", "kind": "crd:ciliumbgpclusterconfigs.cilium.io" },
+        { "id": "bgp-peers", "label": "BGP peer configs", "icon": "globe", "kind": "crd:ciliumbgppeerconfigs.cilium.io" },
+        { "id": "bgp-adverts", "label": "BGP advertisements", "icon": "forward", "kind": "crd:ciliumbgpadvertisements.cilium.io" },
+        { "id": "bgp-nodes", "label": "BGP node configs", "icon": "server", "kind": "crd:ciliumbgpnodeconfigs.cilium.io" },
+        { "id": "bgp-overrides", "label": "BGP node overrides", "icon": "sliders", "kind": "crd:ciliumbgpnodeconfigoverrides.cilium.io" },
+        { "id": "bgp-legacy", "label": "BGP peering policies", "icon": "history", "kind": "crd:ciliumbgppeeringpolicies.cilium.io" },
+        { "id": "egress", "label": "Egress gateway policies", "icon": "exit", "kind": "crd:ciliumegressgatewaypolicies.cilium.io" },
+        { "id": "lrp", "label": "Local redirect policies", "icon": "repeat", "kind": "crd:ciliumlocalredirectpolicies.cilium.io" },
+        { "id": "pod-pools", "label": "Pod IP pools", "icon": "layers", "kind": "crd:ciliumpodippools.cilium.io" },
+        { "id": "cidr-groups", "label": "CIDR groups", "icon": "columns", "kind": "crd:ciliumcidrgroups.cilium.io" },
+        { "id": "envoy-configs", "label": "Envoy configs", "icon": "settings", "kind": "crd:ciliumenvoyconfigs.cilium.io" },
+        { "id": "cc-envoy-configs", "label": "Cluster-wide Envoy configs", "icon": "settings", "kind": "crd:ciliumclusterwideenvoyconfigs.cilium.io" },
+        { "id": "node-configs", "label": "Node configs", "icon": "sliders", "kind": "crd:ciliumnodeconfigs.cilium.io" },
+        { "id": "endpoint-slices", "label": "Endpoint slices", "icon": "copies", "kind": "crd:ciliumendpointslices.cilium.io" },
+        { "id": "gateway-classes", "label": "Gateway class configs", "icon": "gateway", "kind": "crd:ciliumgatewayclassconfigs.cilium.io" },
+        { "id": "agents", "label": "Agents", "icon": "box", "kind": "pods", "selector": "k8s-app=cilium" },
+        { "id": "operator", "label": "Operator", "icon": "rocket", "kind": "pods", "selector": "io.cilium/app=operator" },
+        { "id": "envoy", "label": "Envoy proxies", "icon": "box", "kind": "pods", "selector": "k8s-app=cilium-envoy" },
+        { "id": "hubble", "label": "Hubble", "icon": "monitor", "kind": "pods", "selector": "k8s-app in (hubble-relay,hubble-ui)" },
+        { "id": "clustermesh", "label": "Cluster Mesh API server", "icon": "link", "kind": "pods", "selector": "k8s-app=clustermesh-apiserver" }
+    ],
+    "cards": [
+        {
+            "label": "Endpoints",
+            "kind": "crd:ciliumendpoints.cilium.io",
+            "groupBy": "status.state",
+            "tones": {
+                "ready": "ok",
+                "not-ready": "warn",
+                "waiting-for-identity": "warn",
+                "invalid": "warn",
+                "creating": "warn",
+                "regenerating": "warn",
+                "waiting-to-regenerate": "warn",
+                "restoring": "warn",
+                "disconnecting": "warn",
+                "disconnected": "warn"
+            }
+        },
+        {
+            "label": "Network policies",
+            "kind": "crd:ciliumnetworkpolicies.cilium.io",
+            "groupBy": "status.conditions[Valid]",
+            "tones": { "True": "ok", "False": "error" }
+        },
+        {
+            "label": "Cluster-wide policies",
+            "kind": "crd:ciliumclusterwidenetworkpolicies.cilium.io",
+            "groupBy": "status.conditions[Valid]",
+            "tones": { "True": "ok", "False": "error" }
+        },
+        { "label": "Cilium nodes", "kind": "crd:ciliumnodes.cilium.io" },
+        {
+            "label": "Agents",
+            "kind": "pods",
+            "selector": "k8s-app=cilium",
+            "groupBy": "status.phase",
+            "tones": { "Running": "ok", "Pending": "warn", "Failed": "error", "Unknown": "warn" }
+        }
+    ],
+    "charts": [
+        {
+            "id": "drops",
+            "label": "Dropped packets by reason",
+            "attach": "overview",
+            "unit": "ops/s",
+            "legend": "reason",
+            "description": "Packets the datapath dropped, per second, by the reason it gives — policy denials among them. Needs the agents' metrics scraped (prometheus.enabled in the Helm chart).",
+            "query": "sum by (reason) (rate(cilium_drop_count_total[5m]))"
+        },
+        {
+            "id": "forwarded",
+            "label": "Forwarded packets",
+            "attach": "overview",
+            "unit": "ops/s",
+            "legend": "direction",
+            "description": "Packets the datapath forwarded, per second, ingress and egress.",
+            "query": "sum by (direction) (rate(cilium_forward_count_total[5m]))"
+        },
+        {
+            "id": "endpoint-states",
+            "label": "Endpoints by state",
+            "attach": "overview",
+            "unit": "count",
+            "legend": "endpoint_state",
+            "description": "How many endpoints the agents report in each state.",
+            "query": "sum by (endpoint_state) (cilium_endpoint_state)"
+        },
+        {
+            "id": "regenerations",
+            "label": "Endpoint regenerations",
+            "attach": "overview",
+            "unit": "ops/s",
+            "legend": "outcome",
+            "description": "How often endpoints are regenerated — their eBPF programs rebuilt after a policy or identity change — per second, by outcome.",
+            "query": "sum by (outcome) (rate(cilium_endpoint_regenerations_total[5m]))"
+        },
+        {
+            "id": "map-pressure",
+            "label": "BPF map pressure",
+            "attach": "overview",
+            "unit": "percent",
+            "legend": "map_name",
+            "description": "How full each BPF map is, on the fullest node. A map at 100% drops what does not fit.",
+            "query": "max by (map_name) (cilium_bpf_map_pressure)"
+        }
+    ],
+    "sections": [
+        { "id": "pod", "label": "Cilium", "kind": "pods", "entry": "pod.html", "height": 170 },
+        { "id": "cnp-flow", "label": "Policy flow", "kind": "crd:ciliumnetworkpolicies.cilium.io", "entry": "policy.html", "height": 220 },
+        { "id": "ccnp-flow", "label": "Policy flow", "kind": "crd:ciliumclusterwidenetworkpolicies.cilium.io", "entry": "policy.html", "height": 220 },
+        { "id": "knp-flow", "label": "Cilium", "kind": "networkpolicies", "entry": "policy.html", "height": 200 },
+        { "id": "node", "label": "Cilium", "kind": "nodes", "entry": "node.html", "height": 200 }
+    ]
+}

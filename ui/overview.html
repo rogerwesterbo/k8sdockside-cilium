@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Cilium</title>
+        <link rel="stylesheet" href="cilium.css" />
+        <!-- The bridge to the app. Served by k8sdockside itself, always at this path. -->
+        <script src="/plugin-ui/_sdk/k8sdockside.js"></script>
+    </head>
+    <body class="page page-overview">
+        <p id="error" class="banner error" hidden></p>
+
+        <!-- What Cilium is doing here, in one sentence and one picture. -->
+        <section id="hero" class="ov-hero">
+            <div class="ov-loading">
+                <span class="ov-pulse"></span>
+                <span>Looking for Cilium…</span>
+            </div>
+        </section>
+
+        <!-- The datapath, as cilium-config describes it. -->
+        <section id="datapath" class="ov-datapath" hidden></section>
+
+        <!-- From agent to enforced policy, stage by stage. -->
+        <section id="path" class="ov-path" hidden></section>
+
+        <!-- Every node, with its agent. -->
+        <section id="nodes" class="ov-nodes" hidden></section>
+
+        <div id="columns" class="ov-columns" hidden>
+            <section id="attention" class="ov-card"></section>
+            <section id="activity" class="ov-card"></section>
+        </div>
+
+        <section id="history" class="ov-history" hidden></section>
+
+        <footer id="foot" class="ov-foot" hidden></footer>
+
+        <!-- Classic scripts, not type="module": a sandboxed frame has an opaque
+             origin, so a module would be a cross-origin load. -->
+        <script src="model.js"></script>
+        <script src="kit.js"></script>
+        <script src="overview.js"></script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Cilium policy map</title>
+        <link rel="stylesheet" href="cilium.css" />
+        <!-- The bridge to the app. Served by k8sdockside itself, always at this path. -->
+        <script src="/plugin-ui/_sdk/k8sdockside.js"></script>
+    </head>
+    <body class="page page-policies">
+        <header class="top">
+            <div class="brand">
+                <span id="logo"></span>
+                <div>
+                    <h1>Policy map</h1>
+                    <p id="where" class="faint">Connecting…</p>
+                </div>
+            </div>
+            <div id="key" class="flow-key"></div>
+            <nav class="top-actions" id="top-actions"></nav>
+        </header>
+
+        <p id="error" class="banner error" hidden></p>
+        <section id="empty" class="empty" hidden></section>
+
+        <div id="layout" class="pm-layout" hidden>
+            <aside id="rail" class="rail">
+                <div class="rail-tools">
+                    <label class="search">
+                        <span id="search-icon"></span>
+                        <input id="query" type="search" placeholder="Find a policy" autocomplete="off" spellcheck="false" />
+                    </label>
+                    <div id="kinds"></div>
+                </div>
+                <div id="rail-list" class="rail-list"></div>
+            </aside>
+            <main id="stage" class="stage" aria-live="polite"></main>
+        </div>
+
+        <!-- Classic scripts, not type="module": a sandboxed frame has an opaque
+             origin, so a module would be a cross-origin load. -->
+        <script src="model.js"></script>
+        <script src="kit.js"></script>
+        <script src="flow.js"></script>
+        <script src="policies.js"></script>
+    </body>
+</html>
