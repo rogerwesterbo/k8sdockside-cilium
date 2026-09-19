@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/rogerwesterbo/k8sdockside/main/docs/plugin.schema.json",
+    "$schema": "https://raw.githubusercontent.com/k8sdockside/k8sdockside/main/docs/plugin.schema.json",
     "id": "cilium",
     "name": "Cilium",
     "version": "1.0.0",
@@ -8,13 +8,13 @@
     "icon": "share",
     "logo": "logo.svg",
     "docs": "https://docs.cilium.io/",
-    "author": "Roger Westerbo",
+    "author": "K8s Dockside",
     "links": [
         { "label": "cilium.io", "url": "https://cilium.io" },
         { "label": "Documentation", "url": "https://docs.cilium.io/en/stable/" },
         { "label": "Network policy", "url": "https://docs.cilium.io/en/stable/security/policy/" },
         { "label": "GitHub", "url": "https://github.com/cilium/cilium" },
-        { "label": "Plugin source", "url": "https://github.com/rogerwesterbo/k8sdockside-cilium" }
+        { "label": "Plugin source", "url": "https://github.com/k8sdockside/cilium" }
     ],
     "description": "Cilium networks every pod with eBPF, gives each set of labels a security identity, and enforces network policy on those identities — Kubernetes NetworkPolicies and its own CiliumNetworkPolicies, down to HTTP paths and DNS names.\n\nStart with the Endpoint map: every namespace as an island and every endpoint as a hexagon, coloured by whether policy is enforced on it, its identity, its node or its state. A namespace no policy touches says so, with a button that isolates it. The Policy map draws any policy as a flow — who may connect in, what it selects, where those endpoints may go — and says the same in plain words. Nodes & addresses shows each node's agent and pod addresses, and LB IPAM pools, L2 announcements, BGP sessions and egress gateways where the cluster has them.\n\nPods, Nodes and every network policy also get a Cilium panel in their detail view. Changes — isolating a namespace, switching an LB IPAM pool off — are always shown to you before they are made.",
     "requires": [

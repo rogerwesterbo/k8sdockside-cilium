@@ -1,6 +1,6 @@
 # Cilium for K8s Dockside
 
-A plugin for [K8s Dockside](https://github.com/rogerwesterbo/k8sdockside) that shows
+A plugin for [K8s Dockside](https://github.com/k8sdockside/k8sdockside) that shows
 [Cilium](https://cilium.io) as what it manages: endpoints, identities and the
 policies between them. Plain HTML and script, no build step. Needs K8s Dockside
 0.0.15 or newer (0.0.17 for the *Isolate* button); Prometheus is optional.
@@ -28,7 +28,7 @@ Enforcement per endpoint is worked out from the policies that select it (and
 ## Installing
 
 **Settings → Plugins → From a repository**, with
-`https://github.com/rogerwesterbo/k8sdockside-cilium.git`.
+`https://github.com/k8sdockside/cilium.git`.
 
 ## What it reads, and what it may change
 
@@ -54,4 +54,4 @@ ui/policies.*      policy map        ui/network.*    nodes & addresses
 ui/pod.*  ui/policy.*  ui/node.*     detail panels
 ```
 
-Checked in CI with `go run github.com/rogerwesterbo/k8sdockside/cmd/plugincheck@main .`
+Checked in CI with `go run github.com/k8sdockside/k8sdockside/cmd/plugincheck@main .`
