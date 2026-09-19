@@ -3,9 +3,10 @@
     "id": "cilium",
     "name": "Cilium",
     "version": "1.0.0",
-    "minAppVersion": "0.0.15",
+    "minAppVersion": "0.0.30",
     "tagline": "eBPF networking, network policy and load balancing",
     "icon": "share",
+    "logo": "logo.svg",
     "docs": "https://docs.cilium.io/",
     "author": "Roger Westerbo",
     "links": [
